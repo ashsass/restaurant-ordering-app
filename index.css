@@ -1,3 +1,40 @@
+html {
+    font-size: 20px;
+}
+
 body {
     margin: 0;
+    font-family: 'Smythe', serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
 } 
+
+section {
+    height: 1160px;
+    width: 600px;
+    border: 1px solid #ccc;
+}
+
+header {
+    background-image: url(./images/burger-pic.jpg);
+    background-repeat: no-repeat;
+    background-position: center right;
+    background-size: cover;
+    color: white;
+    height: 14rem;
+}
+
+.heading-text {
+    padding: 2rem;
+}
+
+h1{ 
+    font-size: 3rem;
+    margin: 0;
+}
+
+h1, h2 {
+    font-weight: 400;
+}

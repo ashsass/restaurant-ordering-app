@@ -19,7 +19,7 @@ function getMenuHtml() {
 }
 
 function render() {
-    document.querySelector('.root').innerHTML = getMenuHtml()
+    document.querySelector('.menu').innerHTML = getMenuHtml()
 }
 
 render()
