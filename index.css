@@ -5,29 +5,32 @@ html {
 body {
     margin: 0;
     font-family: 'Smythe', serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
 } 
 
-section {
-    height: 1160px;
-    width: 600px;
-    border: 1px solid #ccc;
+header {
+    color: white;
+    height: 14rem;
+    position: relative;
 }
 
-header {
+header::before {    
+    content: "";
     background-image: url(./images/burger-pic.jpg);
     background-repeat: no-repeat;
     background-position: center right;
     background-size: cover;
-    color: white;
-    height: 14rem;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 0.85;
 }
 
-.heading-text {
-    padding: 2rem;
+.header-text {
+    padding: 1rem;
+    position: relative;
+    z-index: 1;
 }
 
 h1{ 
