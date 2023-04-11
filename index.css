@@ -7,6 +7,7 @@ body {
     font-family: 'Smythe', serif;
 } 
 
+/* Diner Heading */
 header {
     color: white;
     height: 14rem;
@@ -30,7 +31,6 @@ header::before {
 .header-text {
     padding: 1rem;
     position: relative;
-    z-index: 1;
 }
 
 h1{ 
@@ -40,4 +40,36 @@ h1{
 
 h1, h2 {
     font-weight: 400;
+}
+
+/* Menu Items */
+.menu{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.item {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+hr {
+    width: 90%;
+    height: 1px;
+    border: none;
+    background-color: #D2D2D2;
+}
+
+.item-emoji, 
+i.fa-plus {
+    font-size: 3rem;
+    opacity: 0.65;
+    font-style: normal;
+}
+
+.item-text {
+    width: 10rem;
 }
