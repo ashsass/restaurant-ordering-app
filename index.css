@@ -172,7 +172,52 @@ hr {
     border-radius: 3px;
 }
 
+/* Payment Modal */
+.payment {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    width: 524px;
+    height: 542.24px;
+    filter: drop-shadow(5.18654px 5.18654px 255.437px rgba(0, 0, 0, 0.5));
+    background: #FFF;
+    font-family: 'Verdana';
+}
 
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+form > h3 {
+    margin: 46px 0 23px;
+    font-weight: 700;
+    font-size: 24px;
+}
+
+input {
+    width: 475.91px;
+    height: 71.3px;
+    font-size: 20px;
+    color: #757575;
+    padding: 1em;
+}
+
+.pay-btn {
+    color: #FFF;
+    width: 475.91px;
+    height: 71.3px;
+    background: #16DB99;
+    border-radius: 3.88991px;
+    font-weight: 700;
+    font-size: 20px;
+    margin: 25px;
+}
 
  /*Go through and clean up padding and margins. I feel like I'm relying heavily on very small pieces of this instead of tackling it as a bigger structure*/
  /*Spacing still looks off but it looks like the spec for the most part. Want to work on the js now and come back to css*/
