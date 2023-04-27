@@ -2,6 +2,12 @@
 
 import { menuArray } from "./data.js";
 
+document.addEventListener('click', function(e){
+    if(e.target.dataset.item){
+        getOrderHtml(e.target.id)
+    }
+})
+
 function getMenuHtml() {
     let menuHtml = ``
 
@@ -14,14 +20,16 @@ function getMenuHtml() {
                     <p class="item-ingredients">${item.ingredients.join(', ')}</p>
                     <p class="item-price">$${item.price}</p>
                 </div>
-                <button class="item-add">
-                    <i class="fa-light fa-plus"></i>
-                </button>
+                <i class="item-add fa-light fa-plus" id="${item.id}" data-item="${item.id}"></i>
                 <hr>
             </div>
             `
     })
     return menuHtml
+}
+
+function getOrderHtml() {
+
 }
 
 function render() {
