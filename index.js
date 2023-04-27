@@ -1,3 +1,5 @@
+//Add a feature so that on click the initial input value clears so the customer can input their information with ease
+
 import { menuArray } from "./data.js";
 
 function getMenuHtml() {
