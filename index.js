@@ -5,7 +5,11 @@ const orderArray = []
 
 document.addEventListener('click', function(e){
     if(e.target.dataset.item){
-        getOrderHtml(e.target.id)
+        handleAddItem(e.target.dataset.item)
+        getOrderHtml(e.target.dataset.item)
+    }
+    else if(e.target.dataset.remove){
+        handleRemoveItem(e.target.dataset.remove)
     }
 })
 
@@ -32,21 +36,45 @@ function getMenuHtml() {
 function getOrderHtml(id) {
     let orderHtml = ``
     //check if the array has the corresponding item id and if not push it to the array
+
     if (!orderArray.includes(id)){
         orderArray.push(id)
-    
+    }
+    if(orderArray == [])
+    {
+        orderHtml = ''
+    }
         //iterate over the array and pull the id that is present to render the order html. This will allow us to exlude multiple orders. Will need to update a count in someway
-        orderArray.forEach(id => {
+        orderArray.forEach(item => {
             orderHtml +=
-                `<div class="order-item-${menuArray[id].name}" id="${id}">
-                    <h3 class="order-name">${menuArray[id].name}</h3>
-                    <button class="remove">remove</button>
-                    <p class="quantity">1</p>
-                    <p class="item-price order-item-price">$${menuArray[id].price}</p>
+                `<div class="order-item-${menuArray[item].name}" id="${id}">
+                    <h3 class="order-name">${menuArray[item].name}</h3>
+                    <button class="remove" data-remove="${menuArray[item].id}">remove</button>
+                    <p class="quantity">${menuArray[item].quantity}</p>
+                    <p class="item-price order-item-price">$${menuArray[item].price}</p>
                 </div>`
- 
-         return document.querySelector('.order-items-container').innerHTML = orderHtml
         })
+        return document.querySelector('.order-items-container').innerHTML = orderHtml
+}
+
+function handleAddItem(id) {
+    const targetItem = menuArray.filter(item => {
+        return item.id == id 
+    })[0]
+    targetItem.quantity++
+}
+
+function handleRemoveItem(id) {
+    const targetItem = menuArray.filter(item => {
+        return item.id == id
+    })[0]
+    if(targetItem.quantity > 0){ 
+        targetItem.quantity--
+        getOrderHtml(id)
+    }
+    else if (targetItem.quantity == 0){
+        orderArray.splice('id')
+        getOrderHtml(id)
     }
 }
 
@@ -55,3 +83,5 @@ function render() {
 }
 
 render()
+
+//Having trouble removing the div completely when the quantity hits 0
