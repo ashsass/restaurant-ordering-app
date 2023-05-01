@@ -40,9 +40,12 @@ function getOrderHtml(id) {
     if (!orderArray.includes(id)){
         orderArray.push(id)
     }
-    if(orderArray == [])
-    {
-        orderHtml = ''
+    else if(orderArray.includes(id)){
+        if(menuArray[id].quantity === 0){
+            orderArray.splice("id")
+            //NOTE TO SELF - !!!!
+            //May need to have the container with order disappear when the orderArray is empty - work on that later
+        }
     }
         //iterate over the array and pull the id that is present to render the order html. This will allow us to exlude multiple orders. Will need to update a count in someway
         orderArray.forEach(item => {
@@ -70,12 +73,8 @@ function handleRemoveItem(id) {
     })[0]
     if(targetItem.quantity > 0){ 
         targetItem.quantity--
-        getOrderHtml(id)
     }
-    else if (targetItem.quantity == 0){
-        orderArray.splice('id')
-        getOrderHtml(id)
-    }
+    getOrderHtml(id)
 }
 
 function render() {
