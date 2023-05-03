@@ -3,7 +3,6 @@
 
 import { menuArray } from "./data.js";  
 let orderArray = []
-let orderTotal = 0
 
 
 document.addEventListener('click', function(e){
@@ -15,6 +14,8 @@ document.addEventListener('click', function(e){
         handleRemoveItem(e.target.dataset.remove)
     }
 })
+
+render()
 
 function getMenuHtml() {
     let menuHtml = ``
@@ -59,10 +60,11 @@ function getOrderHtml(id) {
         return document.querySelector('.order-items-container').innerHTML = orderHtml
 }
 
-function getTotalHtml(id) {
+function getTotalHtml() {
+    let orderTotal = 0
     menuArray.forEach(item => {
         if(item.quantity){
-            orderTotal += item.quantity * item.price
+            orderTotal += (item.quantity * item.price)
         }
     })
     return document.querySelector('.total-price').innerHTML = orderTotal
@@ -74,9 +76,7 @@ function handleAddItem(id) {
     })[0]
     targetItem.quantity++
    
-    
-    /* orderTotal += menuArray[id].price
-    return document.querySelector('.total-price').innerHTML = orderTotal */
+    getTotalHtml()
 }
 
 function handleRemoveItem(id) {
@@ -87,14 +87,10 @@ function handleRemoveItem(id) {
         targetItem.quantity--
     }
 
-  
-   /*  orderTotal -= menuArray[id].price
-    document.querySelector('.total-price').innerHTML = orderTotal
-    getOrderHtml(id) */
+    getTotalHtml()
+    getOrderHtml(id)
 }
 
 function render() {
     document.querySelector('.menu').innerHTML = getMenuHtml()
 }
-
-render()
