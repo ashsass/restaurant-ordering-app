@@ -1,7 +1,5 @@
 //Add a feature so that on click the initial input value clears so the customer can input their information with ease
 
-//Dynamically adding the total container but still need to have it be hidden until an item is added
-
 import { menuArray } from "./data.js";  
 let orderArray = []
 let hiddenClass = `hidden`
@@ -9,6 +7,8 @@ let hiddenClass = `hidden`
 document.addEventListener('click', function(e){
     if(e.target.dataset.item || e.target.dataset.add){
         let target = e.target.dataset.item || e.target.dataset.add
+        hiddenClass = ``
+        render()
         handleAddItem(target)
         getOrderHtml(target)
     }
@@ -58,14 +58,17 @@ function getMenuHtml() {
 //check if the array has the corresponding item id and if not push it to the array
 //If the item is in the order array but the quantity is zero - remove it
 function getOrderHtml(id) {
-    let orderItemsHtml = ``
-    
-    if (!orderArray.includes(id)){
+    if(!orderArray.includes(id)){
         orderArray.push(id)
     }else if(orderArray.includes(id) && menuArray[id].quantity == 0){ 
         orderArray = orderArray.filter(item => !(item === id))
+        if(orderArray == ``){
+            hiddenClass = `hidden`
+            render()
+        }
     }
     //iterate over the array and pull the id that is present to render the order html. This will allow us to exlude multiple orders.
+    let orderItemsHtml = ``
     orderArray.forEach(item => {
         orderItemsHtml +=
             `<div class="order-item ${menuArray[item].name}" id="${id}">
@@ -108,6 +111,7 @@ function handleRemoveItem(id) {
 
     getTotalHtml()
     getOrderHtml(id)
+    
 }
 
 function render() {

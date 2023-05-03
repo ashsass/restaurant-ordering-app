@@ -25,6 +25,7 @@ body {
     min-height: 100vh;
 }
 
+
 /* Button style */
 .item-add:hover,
 .remove:hover,
@@ -120,17 +121,16 @@ hr {
     padding: 0.35em
   }
 
-  .hidden{
-    display: none;
-  }
-
-
   /* Order */
  .order {
     display: flex;
     flex-direction: column;
     gap: 1rem;
  }
+
+ .hidden{
+    display: none;
+  }
 
  .order-title {
     text-align: center;
