@@ -1,4 +1,11 @@
-* {
+
+ /*
+ - Go through and clean up padding and margins. I feel like I'm relying heavily on very small pieces of this instead of tackling it as a bigger structure
+ - Spacing still looks off but it looks like the spec for the most part. Want to work on the js now and come back to css
+ - Need to fix the add button design. JS functionality messed it up.
+ */
+ 
+ * {
     margin: 0;
     box-sizing: border-box;
 }
@@ -174,6 +181,7 @@ hr {
 
 /* Payment Modal */
 .payment {
+    display: none;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -218,6 +226,3 @@ input {
     font-size: 20px;
     margin: 25px;
 }
-
- /*Go through and clean up padding and margins. I feel like I'm relying heavily on very small pieces of this instead of tackling it as a bigger structure*/
- /*Spacing still looks off but it looks like the spec for the most part. Want to work on the js now and come back to css*/
