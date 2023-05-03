@@ -1,9 +1,7 @@
 //Add a feature so that on click the initial input value clears so the customer can input their information with ease
-//Running in to a bug that when i have multiple items on the order and i remove one it removes all of them but the total remains the same and the quantity of the other items will also remain the same if i add a new item to the order
 
 import { menuArray } from "./data.js";  
 let orderArray = []
-
 
 document.addEventListener('click', function(e){
     if(e.target.dataset.item){
