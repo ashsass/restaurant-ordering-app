@@ -1,4 +1,11 @@
-* {
+
+ /*
+ - Go through and clean up padding and margins. I feel like I'm relying heavily on very small pieces of this instead of tackling it as a bigger structure
+ - Spacing still looks off but it looks like the spec for the most part. Want to work on the js now and come back to css
+ - Need to fix the add button design. JS functionality messed it up.
+ */
+ 
+ * {
     margin: 0;
     box-sizing: border-box;
 }
@@ -36,7 +43,7 @@ h1, h2 {
 }
 
 h3 {
-    font-size: 30px;
+    font-size: 1.5rem;
     font-weight: 400;
 }
 
@@ -46,8 +53,8 @@ h3 {
 .price {
     display: flex;
     flex-direction: column;
-    gap: 45px;
-    padding: 57px 36px;
+    gap: 2.25rem;
+    padding: 2.85rem 1.8rem;
 }
 
 /* Diner Heading */
@@ -70,12 +77,11 @@ header {
     align-items: center;
     align-content: space-between;
     flex-wrap: wrap;
-
 }
 
 hr {
     width: 100%;
-    height: 1px;
+    height: 0.05rem;
     border: none;
     background-color: #D2D2D2;
 }
@@ -85,11 +91,10 @@ hr {
     opacity: 0.65;
 }
 
-
 .item-text {
     width: 10rem;
-    margin-left: 31px;
-    font-size: 16px;
+    margin-left: 1.5rem;
+    font-size: 0.8rem;
 }
 
 .item-ingredients {
@@ -98,28 +103,27 @@ hr {
 }
 
 .item-price {
-    font-size: 20px;
+    font-size: 1rem;
 }
 
 .item-add {
     margin-left: auto;
     background-color: transparent;
-    border: 1.5px solid #DEDEDE;
-    width: 50px;
-    height: 50px;
+    border: 0.075rem solid #DEDEDE;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 1.3rem;
-  }
-  
-  i.fa-plus {
-      font-family: 'Inter';
-      font-size: 25px;
-      color: #3C3C3C;
+    font-family: 'Inter';
+    font-size: 1.25rem;
+    color: #3C3C3C;
+    text-align: center;
+    padding: 0.35em
   }
 
 
   /* Order */
  .order {
-    padding: 0 36px 57px;
+    padding: 0 1.8rem 2.85rem;
  }
 
  .order-title {
@@ -128,12 +132,12 @@ hr {
 
  .order-item {
     display: flex;
-    gap: 13px;
+    gap: 0.65rem;
  }
 
  .remove {
     font-family: 'Verdana';
-    font-size: 12px;
+    font-size: 0.6rem;
     color: #BBBBBB;
     background: transparent;
     border: none;
@@ -145,7 +149,7 @@ hr {
 
  .order > hr {
     background-color: #393333;
-    height: 2px;
+    height: 0.1rem;
  }
 
 
@@ -161,15 +165,15 @@ hr {
 }
 
 .complete {
-    width: 530px;
-    height: 60px;
+    width: 26.5rem;
+    height: 3rem;
     background: #16DB99;
     color: #FFFFFF;
     font-family: 'Verdana';
     font-weight: 700;
-    font-size: 16px;
+    font-size: 0.8rem;
     border: none;
-    border-radius: 3px;
+    border-radius: 0.15rem;
 }
 
 /* Payment Modal */
@@ -181,8 +185,8 @@ hr {
     right: 0;
     left: 0;
     margin: auto;
-    width: 524px;
-    height: 542.24px;
+    width: 26.2rem;
+    height: 27.1rem;
     filter: drop-shadow(5.18654px 5.18654px 255.437px rgba(0, 0, 0, 0.5));
     background: #FFF;
     font-family: 'Verdana';
@@ -192,33 +196,30 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 25px;
+    gap: 1.25rem;
 }
 
 form > h3 {
-    margin: 46px 0 23px;
+    margin: 2.3rem 0 1.15rem;
     font-weight: 700;
-    font-size: 24px;
+    font-size: 1.2rem;
 }
 
 input {
-    width: 475.91px;
-    height: 71.3px;
-    font-size: 20px;
+    width: 24rem;
+    height: 3.55rem;
+    font-size: 1rem;
     color: #757575;
     padding: 1em;
 }
 
 .pay-btn {
     color: #FFF;
-    width: 475.91px;
-    height: 71.3px;
+    width: 23.8rem;
+    height: 3.55rem;
     background: #16DB99;
-    border-radius: 3.88991px;
+    border-radius: 0.2rem;
     font-weight: 700;
-    font-size: 20px;
-    margin: 25px;
+    font-size: 1rem;
+    margin: 1.25rem;
 }
-
- /*Go through and clean up padding and margins. I feel like I'm relying heavily on very small pieces of this instead of tackling it as a bigger structure*/
- /*Spacing still looks off but it looks like the spec for the most part. Want to work on the js now and come back to css*/
