@@ -4,11 +4,13 @@
 
 import { menuArray } from "./data.js";  
 let orderArray = []
+let hiddenClass = `hidden`
 
 document.addEventListener('click', function(e){
-    if(e.target.dataset.item){
-        handleAddItem(e.target.dataset.item)
-        getOrderHtml(e.target.dataset.item)
+    if(e.target.dataset.item || e.target.dataset.add){
+        let target = e.target.dataset.item || e.target.dataset.add
+        handleAddItem(target)
+        getOrderHtml(target)
     }
     else if(e.target.dataset.remove){
         handleRemoveItem(e.target.dataset.remove)
@@ -36,7 +38,7 @@ function getMenuHtml() {
     })
     
     let orderHtml = `
-<div class="order">
+<div class="order ${hiddenClass}">
     <h3 class="order-title">Your Order</h3>
     <div class="order-items-container">
     </div>
@@ -68,10 +70,10 @@ function getOrderHtml(id) {
         orderItemsHtml +=
             `<div class="order-item ${menuArray[item].name}" id="${id}">
                 <h3 class="order-name">${menuArray[item].name}</h3>
+                <button class="remove" data-remove="${menuArray[item].id}">-</button>
                 <p class="quantity">Quantity: ${menuArray[item].quantity}</p>
+                <button class="add" data-add="${menuArray[item].id}">+</button>
                 <p class="item-price order-item-price">Price: $${menuArray[item].price * menuArray[item].quantity}</p>
-                <div class="break"></div>
-                <button class="remove" data-remove="${menuArray[item].id}">remove</button>
             </div>`
     })
     return document.querySelector('.order-items-container').innerHTML = orderItemsHtml
@@ -84,7 +86,7 @@ function getTotalHtml() {
             orderTotal += (item.quantity * item.price)
         }
     })
-    return document.querySelector('.total-price').innerHTML = orderTotal
+    return document.querySelector('.total-price').innerHTML = `$${orderTotal}`
 }
 
 function handleAddItem(id) {
