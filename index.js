@@ -1,7 +1,10 @@
 //Add a feature so that on click the initial input value clears so the customer can input their information with ease
+//Running in to a bug that when i have multiple items on the order and i remove one it removes all of them but the total remains the same and the quantity of the other items will also remain the same if i add a new item to the order
 
 import { menuArray } from "./data.js";  
-const orderArray = []
+let orderArray = []
+let orderTotal = 0
+
 
 document.addEventListener('click', function(e){
     if(e.target.dataset.item){
@@ -36,18 +39,14 @@ function getMenuHtml() {
 function getOrderHtml(id) {
     let orderHtml = ``
     //check if the array has the corresponding item id and if not push it to the array
-
     if (!orderArray.includes(id)){
         orderArray.push(id)
     }
-    else if(orderArray.includes(id)){
-        if(menuArray[id].quantity === 0){
-            orderArray.splice("id")
-            //NOTE TO SELF - !!!!
-            //May need to have the container with order disappear when the orderArray is empty - work on that later
-        }
-    }
-        //iterate over the array and pull the id that is present to render the order html. This will allow us to exlude multiple orders. Will need to update a count in someway
+    //If the item is in the order array but the quantity is zero - remove it
+    else if(orderArray.includes(id) && menuArray[id].quantity == 0){ 
+        orderArray = orderArray.filter(item => !(item === id))        
+    } 
+        //iterate over the array and pull the id that is present to render the order html. This will allow us to exlude multiple orders.
         orderArray.forEach(item => {
             orderHtml +=
                 `<div class="order-item-${menuArray[item].name}" id="${id}">
@@ -60,11 +59,24 @@ function getOrderHtml(id) {
         return document.querySelector('.order-items-container').innerHTML = orderHtml
 }
 
+function getTotalHtml(id) {
+    menuArray.forEach(item => {
+        if(item.quantity){
+            orderTotal += item.quantity * item.price
+        }
+    })
+    return document.querySelector('.total-price').innerHTML = orderTotal
+}
+
 function handleAddItem(id) {
     const targetItem = menuArray.filter(item => {
         return item.id == id 
     })[0]
     targetItem.quantity++
+   
+    
+    /* orderTotal += menuArray[id].price
+    return document.querySelector('.total-price').innerHTML = orderTotal */
 }
 
 function handleRemoveItem(id) {
@@ -74,7 +86,11 @@ function handleRemoveItem(id) {
     if(targetItem.quantity > 0){ 
         targetItem.quantity--
     }
-    getOrderHtml(id)
+
+  
+   /*  orderTotal -= menuArray[id].price
+    document.querySelector('.total-price').innerHTML = orderTotal
+    getOrderHtml(id) */
 }
 
 function render() {
@@ -82,5 +98,3 @@ function render() {
 }
 
 render()
-
-//Having trouble removing the div completely when the quantity hits 0
