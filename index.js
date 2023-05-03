@@ -28,8 +28,8 @@ function getMenuHtml() {
                     <p class="item-price">$${item.price}</p>
                 </div>
                 <i class="item-add fa-light fa-plus" id="${item.id}" data-item="${item.id}"></i>
-                <hr>
             </div>
+            <hr>
             `
     })
     return menuHtml
