@@ -2,11 +2,15 @@
 
 import { menuArray } from "./data.js";  
 let orderArray = []
+let hiddenClass = `hidden`
 
 document.addEventListener('click', function(e){
-    if(e.target.dataset.item){
-        handleAddItem(e.target.dataset.item)
-        getOrderHtml(e.target.dataset.item)
+    if(e.target.dataset.item || e.target.dataset.add){
+        let target = e.target.dataset.item || e.target.dataset.add
+        hiddenClass = ``
+        render()
+        handleAddItem(target)
+        getOrderHtml(target)
     }
     else if(e.target.dataset.remove){
         handleRemoveItem(e.target.dataset.remove)
@@ -20,42 +24,62 @@ function getMenuHtml() {
 
     menuArray.forEach(item => {
         menuHtml += `
-        <div class="item">
-                <div class="item-emoji" id="${item.name}-emoji">${item.emoji}</div>
-                <div class="item-text" id="${item.name}-text">
-                    <h3 class="item-name">${item.name}</h3>
-                    <p class="item-ingredients">${item.ingredients.join(', ')}</p>
-                    <p class="item-price">$${item.price}</p>
-                </div>
-                <i class="item-add fa-light fa-plus" id="${item.id}" data-item="${item.id}"></i>
-                <hr>
-            </div>
-            `
+<div class="item">
+        <div class="item-emoji" id="${item.name}-emoji">${item.emoji}</div>
+        <div class="item-text" id="${item.name}-text">
+            <h3 class="item-name">${item.name}</h3>
+            <p class="item-ingredients">${item.ingredients.join(', ')}</p>
+            <p class="item-price">$${item.price}</p>
+        </div>
+        <i class="item-add fa-light fa-plus" id="${item.id}" data-item="${item.id}"></i>
+    </div>
+    <hr>
+    `
     })
+    
+    let orderHtml = `
+<div class="order ${hiddenClass}">
+    <h3 class="order-title">Your Order</h3>
+    <div class="order-items-container">
+    </div>
+    <hr>
+    <div class="total">
+        <h3>Total Price:</h3>
+        <p class="item-price total-price"></p>
+    </div>
+    <button class="complete">Complete order</button>
+</div>`
+
+    menuHtml += orderHtml
     return menuHtml
 }
 
+
+//check if the array has the corresponding item id and if not push it to the array
+//If the item is in the order array but the quantity is zero - remove it
 function getOrderHtml(id) {
-    let orderHtml = ``
-    //check if the array has the corresponding item id and if not push it to the array
-    if (!orderArray.includes(id)){
+    if(!orderArray.includes(id)){
         orderArray.push(id)
+    }else if(orderArray.includes(id) && menuArray[id].quantity == 0){ 
+        orderArray = orderArray.filter(item => !(item === id))
+        if(orderArray == ``){
+            hiddenClass = `hidden`
+            render()
+        }
     }
-    //If the item is in the order array but the quantity is zero - remove it
-    else if(orderArray.includes(id) && menuArray[id].quantity == 0){ 
-        orderArray = orderArray.filter(item => !(item === id))        
-    } 
-        //iterate over the array and pull the id that is present to render the order html. This will allow us to exlude multiple orders.
-        orderArray.forEach(item => {
-            orderHtml +=
-                `<div class="order-item-${menuArray[item].name}" id="${id}">
-                    <h3 class="order-name">${menuArray[item].name}</h3>
-                    <button class="remove" data-remove="${menuArray[item].id}">remove</button>
-                    <p class="quantity">${menuArray[item].quantity}</p>
-                    <p class="item-price order-item-price">$${menuArray[item].price}</p>
-                </div>`
-        })
-        return document.querySelector('.order-items-container').innerHTML = orderHtml
+    //iterate over the array and pull the id that is present to render the order html. This will allow us to exlude multiple orders.
+    let orderItemsHtml = ``
+    orderArray.forEach(item => {
+        orderItemsHtml +=
+            `<div class="order-item ${menuArray[item].name}" id="${id}">
+                <h3 class="order-name">${menuArray[item].name}</h3>
+                <button class="remove" data-remove="${menuArray[item].id}">-</button>
+                <p class="quantity">Quantity: ${menuArray[item].quantity}</p>
+                <button class="add" data-add="${menuArray[item].id}">+</button>
+                <p class="item-price order-item-price">Price: $${menuArray[item].price * menuArray[item].quantity}</p>
+            </div>`
+    })
+    return document.querySelector('.order-items-container').innerHTML = orderItemsHtml
 }
 
 function getTotalHtml() {
@@ -65,7 +89,7 @@ function getTotalHtml() {
             orderTotal += (item.quantity * item.price)
         }
     })
-    return document.querySelector('.total-price').innerHTML = orderTotal
+    return document.querySelector('.total-price').innerHTML = `$${orderTotal}`
 }
 
 function handleAddItem(id) {
@@ -87,6 +111,7 @@ function handleRemoveItem(id) {
 
     getTotalHtml()
     getOrderHtml(id)
+    
 }
 
 function render() {
