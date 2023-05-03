@@ -1,5 +1,7 @@
 //Add a feature so that on click the initial input value clears so the customer can input their information with ease
 
+//Dynamically adding the total container but still need to have it be hidden until an item is added
+
 import { menuArray } from "./data.js";  
 let orderArray = []
 
@@ -20,42 +22,59 @@ function getMenuHtml() {
 
     menuArray.forEach(item => {
         menuHtml += `
-        <div class="item">
-                <div class="item-emoji" id="${item.name}-emoji">${item.emoji}</div>
-                <div class="item-text" id="${item.name}-text">
-                    <h3 class="item-name">${item.name}</h3>
-                    <p class="item-ingredients">${item.ingredients.join(', ')}</p>
-                    <p class="item-price">$${item.price}</p>
-                </div>
-                <i class="item-add fa-light fa-plus" id="${item.id}" data-item="${item.id}"></i>
-            </div>
-            <hr>
-            `
+<div class="item">
+        <div class="item-emoji" id="${item.name}-emoji">${item.emoji}</div>
+        <div class="item-text" id="${item.name}-text">
+            <h3 class="item-name">${item.name}</h3>
+            <p class="item-ingredients">${item.ingredients.join(', ')}</p>
+            <p class="item-price">$${item.price}</p>
+        </div>
+        <i class="item-add fa-light fa-plus" id="${item.id}" data-item="${item.id}"></i>
+    </div>
+    <hr>
+    `
     })
+    
+    let orderHtml = `
+<div class="order">
+    <h3 class="order-title">Your Order</h3>
+    <div class="order-items-container">
+    </div>
+    <hr>
+    <div class="total">
+        <h3>Total Price:</h3>
+        <p class="item-price total-price"></p>
+    </div>
+    <button class="complete">Complete order</button>
+</div>`
+
+    menuHtml += orderHtml
     return menuHtml
 }
 
+
+//check if the array has the corresponding item id and if not push it to the array
+//If the item is in the order array but the quantity is zero - remove it
 function getOrderHtml(id) {
-    let orderHtml = ``
-    //check if the array has the corresponding item id and if not push it to the array
+    let orderItemsHtml = ``
+    
     if (!orderArray.includes(id)){
         orderArray.push(id)
+    }else if(orderArray.includes(id) && menuArray[id].quantity == 0){ 
+        orderArray = orderArray.filter(item => !(item === id))
     }
-    //If the item is in the order array but the quantity is zero - remove it
-    else if(orderArray.includes(id) && menuArray[id].quantity == 0){ 
-        orderArray = orderArray.filter(item => !(item === id))        
-    } 
-        //iterate over the array and pull the id that is present to render the order html. This will allow us to exlude multiple orders.
-        orderArray.forEach(item => {
-            orderHtml +=
-                `<div class="order-item-${menuArray[item].name}" id="${id}">
-                    <h3 class="order-name">${menuArray[item].name}</h3>
-                    <button class="remove" data-remove="${menuArray[item].id}">remove</button>
-                    <p class="quantity">${menuArray[item].quantity}</p>
-                    <p class="item-price order-item-price">$${menuArray[item].price}</p>
-                </div>`
-        })
-        return document.querySelector('.order-items-container').innerHTML = orderHtml
+    //iterate over the array and pull the id that is present to render the order html. This will allow us to exlude multiple orders.
+    orderArray.forEach(item => {
+        orderItemsHtml +=
+            `<div class="order-item ${menuArray[item].name}" id="${id}">
+                <h3 class="order-name">${menuArray[item].name}</h3>
+                <p class="quantity">Quantity: ${menuArray[item].quantity}</p>
+                <p class="item-price order-item-price">Price: $${menuArray[item].price * menuArray[item].quantity}</p>
+                <div class="break"></div>
+                <button class="remove" data-remove="${menuArray[item].id}">remove</button>
+            </div>`
+    })
+    return document.querySelector('.order-items-container').innerHTML = orderItemsHtml
 }
 
 function getTotalHtml() {
