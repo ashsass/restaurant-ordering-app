@@ -5,6 +5,7 @@ let orderArray = []
 let hiddenClass = `hidden`
 
 document.addEventListener('click', function(e){
+    //When user adds an item through the menu or increments their item in the order menu the order container appears, items increment, and the order html updates
     if(e.target.dataset.item || e.target.dataset.add){
         let target = e.target.dataset.item || e.target.dataset.add
         hiddenClass = ``
@@ -12,10 +13,16 @@ document.addEventListener('click', function(e){
         handleAddItem(target)
         getOrderHtml(target)
     }
+    //When a user removes an item in the order menu
     else if(e.target.dataset.remove){
         handleRemoveItem(e.target.dataset.remove)
     }
+    //When a user completes a payment, the form displays
+    else if(e.target.className === 'complete'){
+       document.querySelector('.payment').style.display = 'flex'
+    }
 })
+
 
 render()
 
@@ -97,7 +104,6 @@ function handleAddItem(id) {
         return item.id == id 
     })[0]
     targetItem.quantity++
-   
     getTotalHtml()
 }
 
@@ -108,10 +114,8 @@ function handleRemoveItem(id) {
     if(targetItem.quantity > 0){ 
         targetItem.quantity--
     }
-
     getTotalHtml()
     getOrderHtml(id)
-    
 }
 
 function render() {
