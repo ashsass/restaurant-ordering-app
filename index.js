@@ -2,14 +2,16 @@
 
 import { menuArray } from "./data.js";  
 let orderArray = []
-let hiddenClass = `hidden`
+const payForm = document.querySelector("#payment-form");
+const menu = document.querySelector(".menu")
+const orderContainer = document.querySelector('.order')
 
 document.addEventListener('click', function(e){
     //When user adds an item through the menu or increments their item in the order menu the order container appears, items increment, and the order html updates
     if(e.target.dataset.item || e.target.dataset.add){
         let target = e.target.dataset.item || e.target.dataset.add
-        hiddenClass = ``
         render()
+        orderContainer.style.display = `flex`
         handleAddItem(target)
         getOrderHtml(target)
     }
@@ -21,11 +23,10 @@ document.addEventListener('click', function(e){
     else if(e.target.className === 'complete'){
        document.querySelector('.payment').style.display = 'flex'
     }
-    else if(e.target.dataset.form){
-        formHandling(e.target.dataset.form)
+    else if(e.target.className === 'pay-btn'){
+        paymentHandling(e)
     }
 })
-
 
 render()
 
@@ -46,21 +47,7 @@ function getMenuHtml() {
     <hr>
     `
     })
-    
-    let orderHtml = `
-<div class="order ${hiddenClass}">
-    <h3 class="order-title">Your Order</h3>
-    <div class="order-items-container">
-    </div>
-    <hr>
-    <div class="total">
-        <h3>Total Price:</h3>
-        <p class="item-price total-price"></p>
-    </div>
-    <button class="complete">Complete order</button>
-</div>`
 
-    menuHtml += orderHtml
     return menuHtml
 }
 
@@ -68,14 +55,11 @@ function getMenuHtml() {
 //check if the array has the corresponding item id and if not push it to the array
 //If the item is in the order array but the quantity is zero - remove it
 function getOrderHtml(id) {
+
     if(!orderArray.includes(id)){
         orderArray.push(id)
     }else if(orderArray.includes(id) && menuArray[id].quantity == 0){ 
         orderArray = orderArray.filter(item => !(item === id))
-        if(orderArray == ``){
-            hiddenClass = `hidden`
-            render()
-        }
     }
     //iterate over the array and pull the id that is present to render the order html. This will allow us to exlude multiple orders.
     let orderItemsHtml = ``
@@ -89,7 +73,21 @@ function getOrderHtml(id) {
                 <p class="item-price order-item-price">Price: $${menuArray[item].price * menuArray[item].quantity}</p>
             </div>`
     })
-    return document.querySelector('.order-items-container').innerHTML = orderItemsHtml
+
+    let order = `
+    <h3 class="order-title">Your Order</h3>
+    <div class="order-items-container">
+        ${orderItemsHtml}
+    </div>
+    <hr>
+    <div class="total">
+        <h3>Total Price:</h3>
+        <p class="item-price total-price"></p>
+    </div>
+    <button class="complete">Complete order</button>
+`
+    orderContainer.innerHTML = order
+    return orderContainer
 }
 
 function getTotalHtml() {
@@ -107,7 +105,6 @@ function handleAddItem(id) {
         return item.id == id 
     })[0]
     targetItem.quantity++
-    getTotalHtml()
 }
 
 function handleRemoveItem(id) {
@@ -121,11 +118,18 @@ function handleRemoveItem(id) {
     getOrderHtml(id)
 }
 
-//Clears the value of the input so the user can easily enter their information
-function formHandling(e){
-    if(document.getElementById(`form-${e}`).value.includes("Enter")){
-        document.getElementById(`form-${e}`).value = ``
-    }
+function paymentHandling(e){
+    e.preventDefault();
+
+    const payFormData = new FormData(payForm);
+    const name = payFormData.get("form-name");
+
+    document.querySelector('.payment').style.display = 'none'
+    orderContainer.style.display = `none`
+    menu.innerHTML += `
+        <div class="thx-message">
+            Thanks ${name}! Your order is on its way!
+        </div>`
 }
 
 function render() {
