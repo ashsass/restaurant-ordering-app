@@ -21,6 +21,9 @@ document.addEventListener('click', function(e){
     else if(e.target.className === 'complete'){
        document.querySelector('.payment').style.display = 'flex'
     }
+    else if(e.target.dataset.form){
+        formHandling(e.target.dataset.form)
+    }
 })
 
 
@@ -116,6 +119,13 @@ function handleRemoveItem(id) {
     }
     getTotalHtml()
     getOrderHtml(id)
+}
+
+//Clears the value of the input so the user can easily enter their information
+function formHandling(e){
+    if(document.getElementById(`form-${e}`).value.includes("Enter")){
+        document.getElementById(`form-${e}`).value = ``
+    }
 }
 
 function render() {
