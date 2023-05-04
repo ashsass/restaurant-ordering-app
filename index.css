@@ -233,3 +233,14 @@ input {
     margin: 1.25rem;
     border: none;
 }
+
+.thx-message {
+    display: none;
+    background: #ECFDF5;
+    color: #065F46;
+    height: 6rem;
+    text-align: center;
+    padding: 1.5em;
+    font-size: 1.5rem;
+    border-radius: 3px;
+}

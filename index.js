@@ -18,6 +18,7 @@ document.addEventListener('click', function(e){
     //When a user removes an item in the order menu
     else if(e.target.dataset.remove){
         handleRemoveItem(e.target.dataset.remove)
+        getOrderHtml(e.target.dataset.remove)
     }
     //When a user completes a payment, the form displays
     else if(e.target.className === 'complete'){
@@ -55,7 +56,6 @@ function getMenuHtml() {
 //check if the array has the corresponding item id and if not push it to the array
 //If the item is in the order array but the quantity is zero - remove it
 function getOrderHtml(id) {
-
     if(!orderArray.includes(id)){
         orderArray.push(id)
     }else if(orderArray.includes(id) && menuArray[id].quantity == 0){ 
@@ -74,6 +74,13 @@ function getOrderHtml(id) {
             </div>`
     })
 
+    let orderTotal = 0
+    menuArray.forEach(item => {
+        if(item.quantity){
+            orderTotal += (item.quantity * item.price)
+        }
+    })
+
     let order = `
     <h3 class="order-title">Your Order</h3>
     <div class="order-items-container">
@@ -82,22 +89,13 @@ function getOrderHtml(id) {
     <hr>
     <div class="total">
         <h3>Total Price:</h3>
-        <p class="item-price total-price"></p>
+        <p class="item-price total-price">$${orderTotal}</p>
     </div>
     <button class="complete">Complete order</button>
 `
+
     orderContainer.innerHTML = order
     return orderContainer
-}
-
-function getTotalHtml() {
-    let orderTotal = 0
-    menuArray.forEach(item => {
-        if(item.quantity){
-            orderTotal += (item.quantity * item.price)
-        }
-    })
-    return document.querySelector('.total-price').innerHTML = `$${orderTotal}`
 }
 
 function handleAddItem(id) {
@@ -114,8 +112,6 @@ function handleRemoveItem(id) {
     if(targetItem.quantity > 0){ 
         targetItem.quantity--
     }
-    getTotalHtml()
-    getOrderHtml(id)
 }
 
 function paymentHandling(e){
@@ -130,6 +126,7 @@ function paymentHandling(e){
         <div class="thx-message">
             Thanks ${name}! Your order is on its way!
         </div>`
+    document.querySelector('.thx-message').style.display = `inline-block`
 }
 
 function render() {
