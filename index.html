@@ -19,13 +19,17 @@
                 <h2>The best burgers and pizza in town.</h2>
             </header>
             <div class="menu">
+                <!-- Menu items -->
+            </div>
+            <div class="order">
+                <!-- Order items -->
             </div>
             <div class="payment">
-                <form>
+                <form id="payment-form">
                     <h3>Enter card details</h3>
-                    <input type="text" id="form-name" name="form-name" value="Enter your name">
-                    <input type="text" id="form-name" name="form-name" value="Enter your card number">
-                    <input type="text" id="form-name" name="form-name" value="Enter your CVV">
+                    <input type="text" id="form-name" name="form-name" placeholder="Enter your name" required>
+                    <input type="text" id="form-card" name="form-card" placeholder="Enter your card number" required>
+                    <input type="text" id="form-cvv" name="form-cvv" placeholder="Enter your CVV" required>
                     <button type="submit" class="pay-btn">Pay</button>
                 </form>
             </div>

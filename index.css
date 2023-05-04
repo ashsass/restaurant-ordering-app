@@ -1,8 +1,6 @@
 
  /*
  - Go through and clean up padding and margins. I feel like I'm relying heavily on very small pieces of this instead of tackling it as a bigger structure
- - Spacing still looks off but it looks like the spec for the most part. Want to work on the js now and come back to css
- - Need to fix the add button design. JS functionality messed it up.
  */
  
  * {
@@ -30,7 +28,8 @@ body {
 .item-add:hover,
 .remove:hover,
 .complete:hover,
-.add:hover {
+.add:hover,
+.pay-btn:hover {
     cursor: pointer;
 }
 
@@ -123,14 +122,10 @@ hr {
 
   /* Order */
  .order {
-    display: flex;
+    display: none;
     flex-direction: column;
     gap: 1rem;
  }
-
- .hidden{
-    display: none;
-  }
 
  .order-title {
     text-align: center;
@@ -236,4 +231,16 @@ input {
     font-weight: 700;
     font-size: 1rem;
     margin: 1.25rem;
+    border: none;
+}
+
+.thx-message {
+    display: none;
+    background: #ECFDF5;
+    color: #065F46;
+    height: 6rem;
+    text-align: center;
+    padding: 1.5em;
+    font-size: 1.5rem;
+    border-radius: 3px;
 }
