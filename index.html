@@ -27,9 +27,35 @@
             <div class="payment">
                 <form id="payment-form">
                     <h3>Enter card details</h3>
-                    <input type="text" id="form-name" name="form-name" placeholder="Enter your name" required>
-                    <input type="text" id="form-card" name="form-card" placeholder="Enter your card number" required>
-                    <input type="text" id="form-cvv" name="form-cvv" placeholder="Enter your CVV" required>
+                    <div class="form-value">
+                        <input 
+                        type="text" 
+                        id="form-name" 
+                        name="form-name" 
+                        placeholder="Enter your name" 
+                        required>
+                        <small></small>
+                    </div>
+                    <div class="form-value">
+                        <input 
+                        type="text" 
+                        id="form-card" 
+                        name="form-card" 
+                        placeholder="Enter your card number" 
+                        minlength="16" maxlength="19" 
+                        required>
+                        <small></small>
+                    </div>
+                    <div class="form-value">
+                        <input 
+                        type="text" 
+                        id="form-cvv" 
+                        name="form-cvv" 
+                        placeholder="Enter your CVV" 
+                        minlength="3" maxlength="4"
+                        required>
+                        <small></small>
+                    </div>
                     <button type="submit" class="pay-btn">Pay</button>
                 </form>
             </div>

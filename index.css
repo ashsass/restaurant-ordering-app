@@ -183,7 +183,7 @@ hr {
 
 /* Payment Modal */
 .payment {
-    display: none;
+    /* display: none; */
     position: fixed;
     top: 0;
     bottom: 0;
@@ -208,6 +208,18 @@ form > h3 {
     margin: 2.3rem 0 1.15rem;
     font-weight: 700;
     font-size: 1.2rem;
+}
+
+.form-value {
+    width: 24rem;
+}
+
+small {
+    color: #ff0000;
+}
+
+.error {
+    border: 0.10rem solid #FF0000;
 }
 
 input {
