@@ -210,6 +210,18 @@ form > h3 {
     font-size: 1.2rem;
 }
 
+.form-value {
+    width: 24rem;
+}
+
+small {
+    color: #ff0000;
+}
+
+.error {
+    border: 0.10rem solid #FF0000;
+}
+
 input {
     width: 24rem;
     height: 3.55rem;

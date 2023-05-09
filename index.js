@@ -121,6 +121,7 @@ function isNumber(input) {
 function showError(input, message) {
     const formValue = input.parentElement
     const error = formValue.querySelector('small')
+    input.classList.toggle('error')
     error.textContent = message
 }
 
