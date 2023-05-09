@@ -2,7 +2,8 @@ import { menuArray } from "./data.js";
 const payForm = document.querySelector("#payment-form");
 const menu = document.querySelector(".menu")
 const orderContainer = document.querySelector('.order')
-const form = document.querySelectorAll('input[type="text"]')
+const formCard = document.querySelector('#form-card')
+const formCvv = document.querySelector('#form-cvv')
 
 document.addEventListener('click', function(e){
     if(e.target.dataset.item || e.target.dataset.add){
@@ -15,9 +16,14 @@ document.addEventListener('click', function(e){
        document.querySelector('.payment').style.display = 'flex'}
 })
 
+/*When the user submits the payment, the validate payment function will check if the card number and cvv number are in fact numbers and not other characters. If it returns true the payment will be handled by another function and will retrieve a thank you message. If not the error message will display telling the user to fix the card number
+*/
 payForm.addEventListener('submit', function(e){
     e.preventDefault()
-    console.log("Payment button clicked")
+    let isCardValid = validatePayment()
+    if(isCardValid){
+        paymentHandling()
+    }
 })
 
 
@@ -107,21 +113,34 @@ function getOrderHtml() {
     return orderContainer
 }
 
-function formValidation() {
-    //Validate proper characters in each input field
-    const isValid = (card) => {
-        const values = /^[0-9]+$/
-        return values.test(card) 
+function isNumber(input) {
+    const values = /^[0-9]+$/
+    return values.test(input) 
+}
+
+function showError(input, message) {
+    const formValue = input.parentElement
+    const error = formValue.querySelector('small')
+    error.textContent = message
+}
+
+function validatePayment() {
+    let valid = false
+
+    if(!isNumber(formCard.value)){
+        showError(formCard, "Please enter a valid card number")
+    } else if(!isNumber(formCvv.value)){
+        showError(formCvv, "Please enter a valid CVV number")
+    }else {
+        valid = true
     }
-    form.forEach(input => input.name!="form-name" ? isValid(input.value) : "")
-    paymentHandling()
+    return valid
 }
 
 function paymentHandling(){
     const payFormData = new FormData(payForm);
     const customerName = payFormData.get("form-name");
 
-    //Display thank you message when payment is complete
     document.querySelector('.payment').style.display = 'none'
     orderContainer.style.display = `none`
     menu.innerHTML += `
