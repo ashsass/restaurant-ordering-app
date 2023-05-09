@@ -1,35 +1,27 @@
-//Add a feature so that on click the initial input value clears so the customer can input their information with ease
-
 import { menuArray } from "./data.js";  
-let orderArray = []
 const payForm = document.querySelector("#payment-form");
 const menu = document.querySelector(".menu")
 const orderContainer = document.querySelector('.order')
 
 document.addEventListener('click', function(e){
-    //When user adds an item through the menu or increments their item in the order menu the order container appears, items increment, and the order html updates
     if(e.target.dataset.item || e.target.dataset.add){
         let target = e.target.dataset.item || e.target.dataset.add
-        render()
         orderContainer.style.display = `flex`
         handleAddItem(target)
-        getOrderHtml(target)
-    }
-    //When a user removes an item in the order menu
-    else if(e.target.dataset.remove){
+    }else if(e.target.dataset.remove){
         handleRemoveItem(e.target.dataset.remove)
-        getOrderHtml(e.target.dataset.remove)
-    }
-    //When a user completes a payment, the form displays
-    else if(e.target.className === 'complete'){
+    }else if(e.target.className === 'complete'){
        document.querySelector('.payment').style.display = 'flex'
-    }
-    else if(e.target.className === 'pay-btn'){
+    }else if(e.target.className === 'pay-btn'){
         paymentHandling(e)
     }
 })
 
 render()
+
+function render() {
+    return document.querySelector('.menu').innerHTML = getMenuHtml()
+}
 
 function getMenuHtml() {
     let menuHtml = ``
@@ -52,57 +44,12 @@ function getMenuHtml() {
     return menuHtml
 }
 
-
-//check if the array has the corresponding item id and if not push it to the array
-//If the item is in the order array but the quantity is zero - remove it
-function getOrderHtml(id) {
-    if(!orderArray.includes(id)){
-        orderArray.push(id)
-    }else if(orderArray.includes(id) && menuArray[id].quantity == 0){ 
-        orderArray = orderArray.filter(item => !(item === id))
-    }
-    //iterate over the array and pull the id that is present to render the order html. This will allow us to exlude multiple orders.
-    let orderItemsHtml = ``
-    orderArray.forEach(item => {
-        orderItemsHtml +=
-            `<div class="order-item ${menuArray[item].name}" id="${id}">
-                <h3 class="order-name">${menuArray[item].name}</h3>
-                <button class="remove" data-remove="${menuArray[item].id}">-</button>
-                <p class="quantity">Quantity: ${menuArray[item].quantity}</p>
-                <button class="add" data-add="${menuArray[item].id}">+</button>
-                <p class="item-price order-item-price">Price: $${menuArray[item].price * menuArray[item].quantity}</p>
-            </div>`
-    })
-
-    let orderTotal = 0
-    menuArray.forEach(item => {
-        if(item.quantity){
-            orderTotal += (item.quantity * item.price)
-        }
-    })
-
-    let order = `
-    <h3 class="order-title">Your Order</h3>
-    <div class="order-items-container">
-        ${orderItemsHtml}
-    </div>
-    <hr>
-    <div class="total">
-        <h3>Total Price:</h3>
-        <p class="item-price total-price">$${orderTotal}</p>
-    </div>
-    <button class="complete">Complete order</button>
-`
-
-    orderContainer.innerHTML = order
-    return orderContainer
-}
-
 function handleAddItem(id) {
     const targetItem = menuArray.filter(item => {
         return item.id == id 
     })[0]
     targetItem.quantity++
+    getOrderHtml()
 }
 
 function handleRemoveItem(id) {
@@ -112,6 +59,48 @@ function handleRemoveItem(id) {
     if(targetItem.quantity > 0){ 
         targetItem.quantity--
     }
+    getOrderHtml()
+}
+
+function getOrderHtml() {
+    //Get the order container HTML
+    let order = `
+    <h3 class="order-title">Your Order</h3>
+    <div class="order-items-container">
+    </div>
+    <hr>
+    <div class="total">
+        <h3>Total Price:</h3>
+        <p class="item-price total-price"></p>
+    </div>
+    <button class="complete">Complete order</button>`
+    orderContainer.innerHTML = order
+    
+    //Iterate through the menu array to create the inner HTML for each item that is added by the uder
+    let orderTotal = 0
+    let orderItemsHtml = ``
+    menuArray.forEach(item => {
+        if(item.quantity > 0){
+            orderTotal += (item.quantity * item.price)
+            orderItemsHtml +=
+            `<div class="order-item ${item.name}" id="${item.id}">
+                <h3 class="order-name">${item.name}</h3>
+                <button class="remove" data-remove="${item.id}">-</button>
+                <p class="quantity">Quantity: ${item.quantity}</p>
+                <button class="add" data-add="${item.id}">+</button>
+                <p class="item-price order-item-price">Price: $${item.price * item.quantity}</p>
+            </div>`
+        }
+    })
+
+    //If the user deletes all items in their order hide the order container
+    if(!orderTotal){
+        orderContainer.style.display = 'none'
+    }
+
+    document.querySelector(".total-price").innerHTML = `$${orderTotal}`
+    document.querySelector(".order-items-container").innerHTML = orderItemsHtml
+    return orderContainer
 }
 
 function paymentHandling(e){
@@ -129,6 +118,3 @@ function paymentHandling(e){
     document.querySelector('.thx-message').style.display = `inline-block`
 }
 
-function render() {
-    document.querySelector('.menu').innerHTML = getMenuHtml()
-}

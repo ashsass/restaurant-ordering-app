@@ -1,9 +1,4 @@
-
- /*
- - Go through and clean up padding and margins. I feel like I'm relying heavily on very small pieces of this instead of tackling it as a bigger structure
- */
- 
- * {
+* {
     margin: 0;
     box-sizing: border-box;
 }
@@ -21,6 +16,7 @@ body {
     height: 58rem;
     margin: auto;
     min-height: 100vh;
+    padding-bottom: 1rem;
 }
 
 
