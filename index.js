@@ -2,6 +2,7 @@ import { menuArray } from "./data.js";
 const payForm = document.querySelector("#payment-form");
 const menu = document.querySelector(".menu")
 const orderContainer = document.querySelector('.order')
+const form = document.querySelectorAll('input[type="text"]')
 
 document.addEventListener('click', function(e){
     if(e.target.dataset.item || e.target.dataset.add){
@@ -11,11 +12,14 @@ document.addEventListener('click', function(e){
     }else if(e.target.dataset.remove){
         handleRemoveItem(e.target.dataset.remove)
     }else if(e.target.className === 'complete'){
-       document.querySelector('.payment').style.display = 'flex'
-    }else if(e.target.className === 'pay-btn'){
-        paymentHandling(e)
-    }
+       document.querySelector('.payment').style.display = 'flex'}
 })
+
+payForm.addEventListener('submit', function(e){
+    e.preventDefault()
+    console.log("Payment button clicked")
+})
+
 
 render()
 
@@ -103,17 +107,26 @@ function getOrderHtml() {
     return orderContainer
 }
 
-function paymentHandling(e){
-    e.preventDefault();
+function formValidation() {
+    //Validate proper characters in each input field
+    const isValid = (card) => {
+        const values = /^[0-9]+$/
+        return values.test(card) 
+    }
+    form.forEach(input => input.name!="form-name" ? isValid(input.value) : "")
+    paymentHandling()
+}
 
+function paymentHandling(){
     const payFormData = new FormData(payForm);
-    const name = payFormData.get("form-name");
+    const customerName = payFormData.get("form-name");
 
+    //Display thank you message when payment is complete
     document.querySelector('.payment').style.display = 'none'
     orderContainer.style.display = `none`
     menu.innerHTML += `
         <div class="thx-message">
-            Thanks ${name}! Your order is on its way!
+            Thanks ${customerName}! Your order is on its way!
         </div>`
     document.querySelector('.thx-message').style.display = `inline-block`
 }
