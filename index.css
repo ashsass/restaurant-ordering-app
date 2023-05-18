@@ -121,6 +121,7 @@ hr {
     display: none;
     flex-direction: column;
     gap: 1rem;
+    padding: 0 1.8rem;
  }
 
  .order-title {
@@ -183,7 +184,7 @@ hr {
 
 /* Payment Modal */
 .payment {
-    /* display: none; */
+    display: none;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -246,7 +247,6 @@ input {
     display: none;
     background: #ECFDF5;
     color: #065F46;
-    height: 6rem;
     text-align: center;
     padding: 1.5em;
     font-size: 1.5rem;

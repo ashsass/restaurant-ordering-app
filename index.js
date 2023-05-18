@@ -4,12 +4,16 @@ const menu = document.querySelector(".menu")
 const orderContainer = document.querySelector('.order')
 const formCard = document.querySelector('#form-card')
 const formCvv = document.querySelector('#form-cvv')
+const thxMessage = document.querySelector('.thx-message')
 
 document.addEventListener('click', function(e){
     if(e.target.dataset.item || e.target.dataset.add){
-        let target = e.target.dataset.item || e.target.dataset.add
-        orderContainer.style.display = `flex`
-        handleAddItem(target)
+        if(thxMessage.style.display === `inline-block`) {
+        } else {
+            let target = e.target.dataset.item || e.target.dataset.add
+            orderContainer.style.display = `flex`
+            handleAddItem(target)
+        }
     }else if(e.target.dataset.remove){
         handleRemoveItem(e.target.dataset.remove)
     }else if(e.target.className === 'complete'){
@@ -144,10 +148,8 @@ function paymentHandling(){
 
     document.querySelector('.payment').style.display = 'none'
     orderContainer.style.display = `none`
-    menu.innerHTML += `
-        <div class="thx-message">
-            Thanks ${customerName}! Your order is on its way!
-        </div>`
-    document.querySelector('.thx-message').style.display = `inline-block`
+    thxMessage.innerHTML += `
+        Thanks ${customerName}! Your order is on its way!`
+    thxMessage.style.display = `inline-block`
 }
 
