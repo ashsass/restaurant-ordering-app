@@ -13,7 +13,6 @@ body {
 
 .root {
     width: 30rem;
-    height: 58rem;
     margin: auto;
     min-height: 100vh;
     padding-bottom: 1rem;
@@ -56,23 +55,22 @@ h3 {
 /* Diner Heading */
 header {
     color: white;
-    height: 8.5rem;
-    padding: 2em;
+    padding: 3em;
     background-image: url(./images/burger-pic.jpg);
     background-repeat: no-repeat;
     background-position: center right;
     background-size: cover;
-    display: flex;
+    /*display: flex;
     flex-direction: column;
     gap: 0.2rem;
+    align-items: flex-start;
+    justify-content: center;*/
 }
 
 /* Menu Items */
 .item {
     display: flex;
     align-items: center;
-    align-content: space-between;
-    flex-wrap: wrap;
 }
 
 hr {
@@ -121,6 +119,7 @@ hr {
     display: none;
     flex-direction: column;
     gap: 1rem;
+    padding: 0 1.8rem;
  }
 
  .order-title {
@@ -183,7 +182,7 @@ hr {
 
 /* Payment Modal */
 .payment {
-    /* display: none; */
+    display: none;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -246,9 +245,9 @@ input {
     display: none;
     background: #ECFDF5;
     color: #065F46;
-    height: 6rem;
     text-align: center;
     padding: 1.5em;
     font-size: 1.5rem;
     border-radius: 3px;
+    width: 100%;
 }
