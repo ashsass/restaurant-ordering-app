@@ -1,11 +1,11 @@
 import { menuArray } from "./data.js";  
-const payForm = document.querySelector("#payment-form");
-const menu = document.querySelector(".menu")
+const payForm = document.querySelector("#payment-form")
 const orderContainer = document.querySelector('.order')
 const formCard = document.querySelector('#form-card')
 const formCvv = document.querySelector('#form-cvv')
 const thxMessage = document.querySelector('.thx-message')
 
+//Event Listeners
 document.addEventListener('click', function(e){
     if(e.target.dataset.item || e.target.dataset.add){
         if(thxMessage.style.display === `inline-block`) {
@@ -30,7 +30,7 @@ payForm.addEventListener('submit', function(e){
     }
 })
 
-
+//Functions
 render()
 
 function render() {
