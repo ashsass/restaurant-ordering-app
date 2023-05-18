@@ -13,7 +13,6 @@ body {
 
 .root {
     width: 30rem;
-    height: 58rem;
     margin: auto;
     min-height: 100vh;
     padding-bottom: 1rem;
@@ -61,19 +60,17 @@ header {
     background-repeat: no-repeat;
     background-position: center right;
     background-size: cover;
-    display: flex;
+    /*display: flex;
     flex-direction: column;
     gap: 0.2rem;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: center;*/
 }
 
 /* Menu Items */
 .item {
     display: flex;
     align-items: center;
-    align-content: space-between;
-    flex-wrap: wrap;
 }
 
 hr {
@@ -252,4 +249,5 @@ input {
     padding: 1.5em;
     font-size: 1.5rem;
     border-radius: 3px;
+    width: 100%;
 }

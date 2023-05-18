@@ -9,10 +9,10 @@ $ npm start
 - [x] Render menu items using JavaScript
 - [x] Add/remove items
 - [x] Have a payment modal with compulsory form inputs
-- [ ] Refactor code
+- [x] Refactor code
+- [ ] Change color of add button to show it has been clicked
 
 ### Stretch Goals
-- [ ] Change the theme
 - [ ] Offer a 'meal deal' discount
 - [ ] Allow users to rate their ordering experience
 
